@@ -4,7 +4,6 @@ import (
 	"encoding/hex"
 	//"bufio"
 	"bytes"
-	"fmt"
 	"math/rand"
 	"strconv"
 	"testing"
@@ -22,16 +21,26 @@ var (
 
 func TestMain(t *testing.T) {
 	c := New()
-	fmt.Println(c.String())
-	fmt.Println(c.Time())
+	if c.String() == "" {
+		t.Fatal("invalid string")
+	}
+
+	if c.Time().IsZero() {
+		t.Fatal("invalid time")
+	}
 
 	buf := bytes.NewBuffer(nil)
 	binny.NewEncoder(buf).Encode(c)
 
 	var n UUID
 	binny.NewDecoder(buf).Decode(&n)
-	fmt.Println(n.String())
-	fmt.Println(n.Time())
+	if n.String() == "" {
+		t.Fatal("invalid string")
+	}
+
+	if n.Time().IsZero() {
+		t.Fatal("invalid time")
+	}
 }
 
 func BenchmarkCurrent(b *testing.B) {
