@@ -60,6 +60,11 @@ func (u UUID) String() string {
 	return hex.EncodeToString(u[:])
 }
 
+// Short returns a string representation of 24-byte UUID
+func (u UUID) Short() string {
+	return hex.EncodeToString(u[:])[:24]
+}
+
 // Time returns a time representation of UUID
 func (u UUID) Time() time.Time {
 	return time.Unix(0, *(*int64)(unsafe.Pointer(&u[0])))
