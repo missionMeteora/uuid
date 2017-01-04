@@ -53,7 +53,7 @@ func (g *Gen) New() (u UUID) {
 }
 
 // UUID is returned when a UUID is requested. It is a 16 byte array with helper functions
-type UUID [16]byte
+type UUID [12]byte
 
 // String returns a string representation of UUID
 func (u UUID) String() string {
