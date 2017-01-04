@@ -53,11 +53,16 @@ func (g *Gen) New() (u UUID) {
 }
 
 // UUID is returned when a UUID is requested. It is a 16 byte array with helper functions
-type UUID [12]byte
+type UUID [16]byte
 
 // String returns a string representation of UUID
 func (u UUID) String() string {
 	return hex.EncodeToString(u[:])
+}
+
+// Short returns a string representation of 24-byte UUID
+func (u UUID) Short() string {
+	return hex.EncodeToString(u[:])[:24]
 }
 
 // Time returns a time representation of UUID

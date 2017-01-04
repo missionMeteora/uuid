@@ -25,6 +25,10 @@ func TestMain(t *testing.T) {
 		t.Fatal("invalid string")
 	}
 
+	if len(c.Short()) != 24 {
+		t.Fatal("invalid short length")
+	}
+
 	if c.Time().IsZero() {
 		t.Fatal("invalid time")
 	}
