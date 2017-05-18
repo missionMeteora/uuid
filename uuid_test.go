@@ -47,6 +47,18 @@ func TestMain(t *testing.T) {
 	}
 }
 
+func TestParse(t *testing.T) {
+	ou := New()
+	nu, err := Parse(ou[:])
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if ou.Time().Unix() != nu.Time().Unix() {
+		t.Fatalf("invalid parsing, original UUID and new UUID do not match.\n%v\n%v\n", ou, nu)
+	}
+}
+
 func BenchmarkCurrent(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		pubCurr = New()
