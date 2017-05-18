@@ -10,6 +10,12 @@ import (
 
 	"github.com/missionMeteora/binny.v2"
 	"github.com/missionMeteora/lockie"
+	"github.com/missionMeteora/toolkit/errors"
+)
+
+const (
+	// ErrInvalidLength is returned when a UUID is not a proper length
+	ErrInvalidLength = errors.Error("invalid uuid length")
 )
 
 var gen *Gen
@@ -33,6 +39,17 @@ func NewGen() *Gen {
 		rnd: rand.New(rand.NewSource(int64(nseed))),
 		mux: lockie.NewLockie(),
 	}
+}
+
+// Parse will parse a byteslice as a UUID
+func Parse(b []byte) (u UUID, err error) {
+	if len(b) != 16 {
+		err = ErrInvalidLength
+		return
+	}
+
+	copy(u[:], b)
+	return
 }
 
 // Gen is a generator of uuid's which uses it's own locking mechanism (instead of a global lock)
