@@ -43,13 +43,23 @@ func NewGen() *Gen {
 
 // Parse will parse a byteslice as a UUID
 func Parse(b []byte) (u UUID, err error) {
-	if len(b) != 16 {
+	if len(b) > 16 {
 		err = ErrInvalidLength
 		return
 	}
 
 	copy(u[:], b)
 	return
+}
+
+// ParseStr will parse a string
+func ParseStr(str string) (u UUID, err error) {
+	var decoded []byte
+	if decoded, err = hex.DecodeString(str); err != nil {
+		return
+	}
+
+	return Parse(decoded)
 }
 
 // Gen is a generator of uuid's which uses it's own locking mechanism (instead of a global lock)
